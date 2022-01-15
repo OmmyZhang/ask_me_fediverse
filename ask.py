@@ -256,7 +256,9 @@ def question_info(acct, secr, toot):
             'disp': (t.account.display_name or t.account.acct),
             'url': t.account.url,
             'content': render_content(t.content, t.emojis),
-            'time': str(t.created_at)
+            'time': str(t.created_at),
+            'images': [m.url for m in t.media_attachments if m.type == 'image'],
+            'videos': [m.url for m in t.media_attachments if m.type == 'video'],
         }
         for t in context.descendants
     ]

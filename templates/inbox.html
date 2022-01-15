@@ -6,9 +6,9 @@
 	<link rel="icon" type="image/png" href="/img/box.png"/>
 	<meta property="og:title" content="{{disp}}的提问箱" />
 	<meta property="og:description" content="欢迎向我提问！" />
-    <meta property="og:site_name" content="闭社匿名提问箱" />
-    <meta property="og:image" content="/img/box.png" /> 
-    
+  <meta property="og:site_name" content="闭社匿名提问箱" />
+  <meta property="og:image" content="/img/box.png" />
+
 	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -21,30 +21,34 @@
 	        padding:5px;
 	        color:black;
 	        box-shadow: 2px 2px 10px 2px rgb(219 219 220);
-            border-radius: .5rem;
-            margin: 25px 0;
+          border-radius: .5rem;
+          margin: 25px 0;
 	    }
 	    pre {
 	        margin: 15px 0 0 15px;
 	        white-space: pre-wrap;
       }
       .emoji {
-        width: 24px;
+          width: 24px;
+      }
+      .status-media {
+          max-width: 100%;
+          max-height: 550px;
+          margin: 0 auto;
       }
 	    .timeago {
 	        font-size: 0.5em;
 	        text-align: right;
-        }
-        .display_name {
-            margin: 0;
-        }
-        .card-body {
-            padding: 0.75em;
-        }
+      }
+      .display_name {
+          margin: 0;
+      }
+      .card-body {
+          padding: 0.75em;
+      }
 	</style>
 </head>
-<body style="background-color: #001a37;color:#e8e8e8">
-	
+<body style="background-color: #001a37;color:#e8e8e8">	
 	<div style="max-width:700px;" class="container">
 			<div style="background-color:rgba(230,230,250,0.5);margin-bottom:80px">
 
@@ -70,10 +74,10 @@
                     <button type="submit" class="btn btn-primary">发送提问</button>
                 </div>
             </form>
-            
+
             <hr/>
             <h3>对 {{disp}} 的提问({{qs|length}})</h3>
-            
+
             {% for q in qs|reverse %}
             <div class="qbox">
                 <pre>{{q.content}}</pre>
@@ -81,7 +85,7 @@
                     <time class="timeago" datetime="{{q.time}}"></time>
                     <a class="btn btn-link request-answer" data-toggle="collapse" href="#collapse-{{q.toot}}" role="button" aria-expanded="false" aria-controls="collapse-{{q.toot}}">
                         查看回复
-                        <span><svg fill="#007bff" viewBox="0 0 24 24" width="24" height="24" ><path d="M12 13L8.285 9.218a.758.758 0 0 0-1.064 0 .738.738 0 0 0 0 1.052l4.249 4.512a.758.758 0 0 0 1.064 0l4.246-4.512a.738.738 0 0 0 0-1.052.757.757 0 0 0-1.063 0L12.002 13z" style="animation: downn 1.5s infinite;" "=""></path></svg></span>
+                        <span><svg fill="#007bff" viewBox="0 0 24 24" width="24" height="24" ><path d="M12 13L8.285 9.218a.758.758 0 0 0-1.064 0 .738.738 0 0 0 0 1.052l4.249 4.512a.758.758 0 0 0 1.064 0l4.246-4.512a.738.738 0 0 0 0-1.052.757.757 0 0 0-1.063 0L12.002 13z"></path></svg></span>
                     </a>
                 </div>
                 <div class="collapse" id="collapse-{{q.toot}}">
@@ -91,11 +95,11 @@
                 </div>
             </div>
             {% endfor %}
-            
+
             <script>
             $('.timeago').timeago();
             $('.collapse').on('show.bs.collapse', (e) => {
-                let self = e.target; 
+                let self = e.target;
                 let toot = self.id.split('-')[1];
                 $.ajax({
 		            type:'GET',
@@ -105,9 +109,19 @@
 			            if(result.replies.length) {
 			                $(self).empty();
 			                result.replies.forEach((rp) => {
-			                    $(self).append(`<div class="card card-body"><p class="display_name"><a href="${rp.url}">${rp.disp}</a>:</p><pre>${rp.content}</pre><time class="timeago" datetime="${rp.time}"></time></div>`)
+                        $(self).append(`
+                          <div class="card card-body">
+                            <p class="display_name">
+                              <a href="${rp.url}">${rp.disp}</a>:
+                            </p>
+                            <pre>
+                              ${rp.content}
+                            </pre>
+                            ${rp.images.map((url) => `<image class="status-media" src=${url}>`)}
+                            <time class="timeago" datetime="${rp.time}"></time>
+                          </div>
+                        `);
 			                });
-			                console.log($(self).find('.timeago'));
 			                $(self).find('.timeago').timeago();
 			            }else {
 			                $(self).empty();
