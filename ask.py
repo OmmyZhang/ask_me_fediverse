@@ -11,7 +11,7 @@ import datetime
 from dateutil.tz import tzlocal
 
 BOT_NAME = '@ask_me_bot'
-CLIENT_ID = 'tKqbqe-KfV6n2HUnSyjnBbsuzGCgshW5ICu-YTIoeSU'
+CLIENT_ID = 'WQHzKKvfahkkcFm_iErT6ZdYvczi8L6Uunsoa88bCKA'
 CLIENT_SEC = open('client.secret', 'r').read().strip()
 
 DOMAIN = 'thu.closed.social'
