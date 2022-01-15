@@ -257,8 +257,7 @@ def question_info(acct, secr, toot):
             'url': t.account.url,
             'content': render_content(t.content, t.emojis),
             'time': str(t.created_at),
-            'images': [m.url for m in t.media_attachments if m.type == 'image'],
-            'videos': [m.url for m in t.media_attachments if m.type == 'video'],
+            'media': t.media_attachments,
         }
         for t in context.descendants
     ]

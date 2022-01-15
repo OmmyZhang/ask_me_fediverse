@@ -117,7 +117,18 @@
                             <pre>
                               ${rp.content}
                             </pre>
-                            ${rp.images.map((url) => `<image class="status-media" src=${url}>`)}
+                            ${rp.media.map((media) => {
+                              switch (media.type) {
+                                case 'image':
+                                  return `<image class="status-media" src=${media.url}>`;
+                                case 'video':
+                                  return `<video class="status-media" src=${media.url} controls></video>`;
+                                case 'gifv':
+                                  return `<video class="status-media" src=${media.url} autoplay loop></video>`;
+                                default:
+                                  return '';
+                              }
+                            }).join('\n')}
                             <time class="timeago" datetime="${rp.time}"></time>
                           </div>
                         `);
