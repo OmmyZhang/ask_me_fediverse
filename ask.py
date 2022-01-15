@@ -9,7 +9,6 @@ import random
 import string
 import datetime
 from dateutil.tz import tzlocal
-import html2text
 
 BOT_NAME = '@ask_me_bot'
 CLIENT_ID = 'tKqbqe-KfV6n2HUnSyjnBbsuzGCgshW5ICu-YTIoeSU'
@@ -17,8 +16,11 @@ CLIENT_SEC = open('client.secret', 'r').read().strip()
 
 DOMAIN = 'thu.closed.social'
 
+MENTION_BOT_TEMP = re.compile(r'<span class=\"h-card\"><a href=\"https://thu.closed.social/@ask_me_bot\" class=\"u-url mention\">@<span>.*?</span></a></span>')
+DELETE_TEMP = re.compile(r'<p>\s*删除\s*</p>')
+
 WORK_URL = 'https://closed.social'
-# WORK_URL = 'http://127.0.0.1:5000'
+WORK_URL = 'http://127.0.0.1:5000'
 
 REDIRECT_URI = WORK_URL + '/askMe/auth'
 
@@ -39,9 +41,6 @@ limiter = Limiter(
     key_func=get_remote_address,
     default_limits=["50 / minute"],
 )
-
-h2t = html2text.HTML2Text()
-h2t.ignore_links = True
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -107,8 +106,6 @@ def set_inbox_auth():
     autoSend = request.args.get('autoSend')
     secr = request.args.get('secr')
 
-    #print(code,autoSend, secr)
-
     if secr and not re.match('[a-z]{0,16}', secr):
         abort(422)
 
@@ -117,12 +114,14 @@ def set_inbox_auth():
         client_secret=CLIENT_SEC,
         api_base_url='https://' + DOMAIN
     )
-    token = client.log_in(
+    client.log_in(
         code=code,
         redirect_uri=f"{REDIRECT_URI}?autoSend={autoSend or ''}&secr={secr or ''}",
         scopes=[
             'read:accounts',
-            'write:statuses'] if autoSend else ['read:accounts'])
+            'write:statuses'
+        ] if autoSend else ['read:accounts']
+    )
 
     info = client.account_verify_credentials()
 
@@ -160,11 +159,10 @@ def set_inbox():
     for conv in r:
         status = conv.last_status
         account = status.account
-        # print(account)
         if acct == account.acct:
-            pt = h2t.handle(status.content).strip()
+            pt = status.content.strip()
 
-            x = re.findall('新建(\\[[a-z]{1,32}\\])?', pt)
+            x = re.findall(r'新建(\[[a-z]{1,32}\])?', pt)
             if not x:
                 return '私信格式无效，请检查并重新发送', 422
 
@@ -194,9 +192,7 @@ def set_inbox():
 
 @app.route('/askMe/<acct>/<secr>/')
 def inbox(acct, secr):
-    u = User.query.filter_by(acct=acct, secr=secr).first()
-    if not u:
-        abort(404)
+    u = User.query.filter_by(acct=acct, secr=secr).first_or_404()
 
     qs = [{
         'content': q.content,
@@ -217,7 +213,6 @@ def new_question(acct, secr):
         abort(404)
 
     content = request.form.get('question')
-    print(content)
     if not content or len(content) > 400:
         abort(422)
 
@@ -241,6 +236,14 @@ def new_question(acct, secr):
     return redirect(".")
 
 
+def render_content(text, emojis):
+    text = MENTION_BOT_TEMP.sub('', text)
+    for emoji in emojis:
+        text = text.replace(':%s:' % emoji.shortcode, '<img class="emoji" src="%s">' % emoji.url)
+
+    return text
+
+
 @app.route('/askMe/<acct>/<secr>/<int:toot>')
 def question_info(acct, secr, toot):
     q = Question.query.filter_by(acct=acct, toot=toot).first()
@@ -252,13 +255,13 @@ def question_info(acct, secr, toot):
         {
             'disp': (t.account.display_name or t.account.acct),
             'url': t.account.url,
-            'content': h2t.handle(t.content).replace(BOT_NAME, '').strip(),
+            'content': render_content(t.content, t.emojis),
             'time': str(t.created_at)
         }
         for t in context.descendants
     ]
-    # print(replies)
-    if replies and replies[-1].get('content') == '删除':
+
+    if replies and DELETE_TEMP.match(replies[-1].get('content')):
         db.session.delete(q)
         db.session.commit()
         th.status_delete(toot)
