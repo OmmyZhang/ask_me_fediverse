@@ -20,7 +20,7 @@ MENTION_BOT_TEMP = re.compile(r'<span class=\"h-card\"><a href=\"https://thu.clo
 DELETE_TEMP = re.compile(r'<p>\s*删除\s*</p>')
 
 WORK_URL = 'https://closed.social'
-WORK_URL = 'http://127.0.0.1:5000'
+# WORK_URL = 'http://127.0.0.1:5000'
 
 REDIRECT_URI = WORK_URL + '/askMe/auth'
 
