@@ -1,40 +1,43 @@
-from flask import Flask, request, render_template, send_from_directory, abort, redirect
+from flask import (
+    Flask, request, render_template, send_from_directory, abort, redirect)
 from flask_sqlalchemy import SQLAlchemy
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 from mastodon import Mastodon
 import re
 import random
 import string
 import datetime
 from dateutil.tz import tzlocal
-
-BOT_NAME = '@ask_me_bot'
-CLIENT_ID = 'WQHzKKvfahkkcFm_iErT6ZdYvczi8L6Uunsoa88bCKA'
-CLIENT_SEC = open('client.secret', 'r').read().strip()
-
-DOMAIN = 'thu.closed.social'
-
-MENTION_BOT_TEMP = re.compile(r'<span class=\"h-card\"><a href=\"https://thu.closed.social/@ask_me_bot\" class=\"u-url mention\">@<span>.*?</span></a></span>')
-DELETE_TEMP = re.compile(r'<p>\s*删除\s*</p>')
-
-WORK_URL = 'https://closed.social'
-# WORK_URL = 'http://127.0.0.1:5000'
-
-REDIRECT_URI = WORK_URL + '/askMe/auth'
-
-token = open('token.secret', 'r').read().strip()
-th = Mastodon(
-    access_token=token,
-    api_base_url='https://' + DOMAIN
-)
+from config import Config
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///ask.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['JSON_AS_ASCII'] = False
+app.config.from_object(Config)
+
+BOT_NAME = Config.BOT_NAME
+MAST_URL = Config.MAST_URL
+WORK_URL = Config.WORK_URL
+TOKEN = Config.TOKEN
+CLIENT_ID = Config.CLIENT_ID
+CLIENT_SEC = Config.CLIENT_SEC
+
+MENTION_BOT_TEMP = re.compile(
+    r'<span class=\"h-card\">'
+    '<a [^>]*href=\"{}/{}\"[^>]*>'
+    '@<span>.*?</span>'
+    '</a></span>'.format(MAST_URL, BOT_NAME)
+)
+DELETE_TEMP = re.compile(r'<p>\s*删除\s*</p>')
+
+REDIRECT_URI = WORK_URL + '/askMe/auth'
+
+th = Mastodon(
+    access_token=TOKEN,
+    api_base_url=MAST_URL
+)
+
 
 limiter = Limiter(
     app,
@@ -43,7 +46,7 @@ limiter = Limiter(
 )
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 
 class User(db.Model):
@@ -91,7 +94,7 @@ def send_img(path):
 
 @app.route('/askMe/')
 def root():
-    return app.send_static_file('ask.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/askMe/footer.html')
@@ -103,8 +106,8 @@ def root_footer():
 @limiter.limit("10 / minute")
 def set_inbox_auth():
     code = request.args.get('code')
-    autoSend = request.args.get('autoSend')
-    secr = request.args.get('secr')
+    autoSend = request.args.get('autoSend', '')
+    secr = request.args.get('secr', '')
 
     if secr and not re.match('[a-z]{0,16}', secr):
         abort(422)
@@ -112,11 +115,13 @@ def set_inbox_auth():
     client = Mastodon(
         client_id=CLIENT_ID,
         client_secret=CLIENT_SEC,
-        api_base_url='https://' + DOMAIN
+        api_base_url=MAST_URL
     )
     client.log_in(
         code=code,
-        redirect_uri=f"{REDIRECT_URI}?autoSend={autoSend or ''}&secr={secr or ''}",
+        redirect_uri=(
+            '{}?autoSend={}&secr={}'
+        ).format(REDIRECT_URI, autoSend, secr),
         scopes=[
             'read:accounts',
             'write:statuses'
@@ -140,7 +145,8 @@ def set_inbox_auth():
 
     if autoSend:
         client.status_post(
-            f"[自动发送] 我创建了一个匿名提问箱，欢迎提问~\n{WORK_URL}/askMe/{acct}/{u.secr}",
+            f"[自动发送] 我创建了一个匿名提问箱，欢迎提问~\n"
+            f"{WORK_URL}/askMe/{acct}/{u.secr}",
             visibility='public')
 
     db.session.commit()
@@ -153,7 +159,7 @@ def set_inbox_auth():
 def set_inbox():
     acct = request.form.get('username')
     if not re.match('[A-Za-z0-9_]{1,30}(@[a-z\\.-_]+)?', acct):
-        return '无效的闭社id', 422
+        return 'id', 422
 
     r = th.conversations()
     for conv in r:
@@ -180,10 +186,14 @@ def set_inbox():
             u.secr = secr
             db.session.commit()
 
-            th.status_post(f"@{acct} 设置成功! 当前提问箱链接 {WORK_URL}/askMe/{acct}/{secr}\n(如需在微信等无链接预览的平台分享，建议先发给自己，点开，再点击分享到朋友圈等)",
-                           in_reply_to_id=status.id,
-                           visibility='direct'
-                           )
+            th.status_post(
+                f"@{acct} 设置成功! 当前提问箱链接 "
+                f"{WORK_URL}/askMe/{acct}/{secr}\n"
+                f"(如需在微信等无链接预览的平台分享，建议先发给自己，"
+                "点开，再点击分享到朋友圈等)",
+                in_reply_to_id=status.id,
+                visibility='direct'
+            )
 
             return acct + '/' + secr
 
@@ -220,14 +230,16 @@ def new_question(acct, secr):
 
         if not u.root:
             toot = th.status_post(
-                f"@{acct} 欢迎使用匿名提问箱。未来的新提问会集中显示在这里，方便管理。戳我头像了解如何回复。",
+                f"@{acct} 欢迎使用匿名提问箱。"
+                "未来的新提问会集中显示在这里，方便管理。",
                 visibility='direct')
             u.root = toot.id
 
-        toot = th.status_post(f"@{acct} 叮~ 有新提问：\n\n{content}",
-                              in_reply_to_id=u.root,
-                              visibility='direct'
-                              )
+        toot = th.status_post(
+            f"@{acct} 叮~ 有新提问：\n\n{content}",
+            in_reply_to_id=u.root,
+            visibility='direct'
+        )
 
         q = Question(acct, content, toot.id)
         db.session.add(q)
@@ -239,7 +251,10 @@ def new_question(acct, secr):
 def render_content(text, emojis):
     text = MENTION_BOT_TEMP.sub('', text)
     for emoji in emojis:
-        text = text.replace(':%s:' % emoji.shortcode, '<img class="emoji" src="%s">' % emoji.url)
+        text = text.replace(
+            ':%s:' % emoji.shortcode,
+            '<img class="emoji" src="%s">' % emoji.url
+        )
 
     return text
 

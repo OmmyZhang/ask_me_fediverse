@@ -39,19 +39,13 @@
 
 	<body style="background-color: #001a37;color:#e8e8e8">
 		<div class="container" style="max-width:900px;" >
-
 			<div style="text-align:center; margin: 25px 0">
-			<a href="##" data-toggle="tooltip" style="color:white;text-decoration: none;">
-			<div>
-				<img align='center' src='/img/logo-text.svg' width=96px/>
-				<h1 align='center'>匿名提问箱</h1>
+			  <div>
+				  <h1>匿名提问箱</h1>
 		    </div>
-			</a>
 				<hr/>
 
-				<p>提问无需登陆，真正匿名<br/>
-				链接路径加密，避免乱入</p>
-
+				<p>提问无需登陆，真正匿名<br/>链接路径加密，避免乱入</p>
 			</div>
 
 			<hr style="border-top: 1px solid white;"/>
@@ -59,29 +53,30 @@
 			<div style="text-align:center; margin:1%">
 
 				<p><a type="button" class="btn btn-primary btn-lg" href="#start">创建提问箱</a></p>
-				<svg viewbox="0 0 50 100" width="64px" height="64px" stroke="#e8e8e8" stroke-width="7.5" stroke-miterlimit="10" style="animation: downn 2s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 2s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
 				<p>分享加密链接</p>
-				<svg viewbox="0 0 50 100" width="64px" height="64px" stroke="#e8e8e8" stroke-width="7.5" stroke-miterlimit="10" style="animation: downn 3s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 3s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
 				<p>好友匿名提问</p>
-				<svg viewbox="0 0 50 100" width="64px" height="64px" stroke="#e8e8e8" stroke-width="7.5" stroke-miterlimit="10" style="animation: downn 4s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
-				<p>bot在闭社私信提醒</p>
-				<svg viewbox="0 0 50 100" width="64px" height="64px" stroke="#e8e8e8" stroke-width="7.5" stroke-miterlimit="10" style="animation: downn 5s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 4s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+				<p>bot在私信提醒</p>
+				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 5s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
 				<p>回复私信进行答复或删除</p>
 			</div>
 
-
 			<hr style="border-top: 1px solid white;"/>
 
-            <h4 id="start">任选一种方式创建/进入提问箱</h4>
+      <h4 id="start">任选一种方式创建/进入提问箱</h4>
+      <!-- DIRECT_START -->
 			<div style="margin:30px auto;padding:15px;border: 1px dashed white;border-radius:15px; max-width:400px;">
-			    <h5>私信bot认证</h5>
-				<p>输入闭社id并前往闭社私信 <b>@ask_me_bot</b> “新建”，然后点击下方按钮，即可新建或重置提问箱。 
-				    <a href="##" role="button"data-toggle="popover" >
-				    <svg width="20px" viewBox="0 0 24 28"><path d="M15.07 11.25l-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2a2 2 0 0 0-2 2H8a4 4 0 0 1 4-4a4 4 0 0 1 4 4a3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10z" fill="#626262"/></svg>
-				    </a>
+			  <h5>私信bot认证</h5>
+        <p>
+          输入id并私信 <b>{{BOT_NAME}}@{{MAST_DOMAIN}}</b> “新建”，然后点击下方按钮，即可新建或重置提问箱。 
+				  <a href="##" role="button"data-toggle="popover" >
+				    <svg width="20" viewBox="0 0 24 28"><path d="M15.07 11.25l-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2a2 2 0 0 0-2 2H8a4 4 0 0 1 4-4a4 4 0 0 1 4 4a3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10z" fill="#626262"/></svg>
+				  </a>
 				</p>
 				<form class="form-row" action="javascript:void(0);" onsubmit="return sendData()">
-					<div class="col">
+				  <div class="col">
 					    <div class="input-group mb-2">
 					        <div class="input-group-prepend">
 					            <div class="input-group-text">@</div>
@@ -92,19 +87,19 @@
 					<div class="col-auto">
 					    <button id="send" type="submit" class="btn btn-primary mb-2">我已私信</button>
 					</div>
-				</form>
-				
+				</form>	
 			</div>
+      <!-- DIRECT_END -->
 			
+      <!-- OAUTH_START -->
 			<div style="margin:30px auto;padding:15px;border: 1px dashed white;border-radius:15px; max-width:400px;">
-			    <h5>授权登陆认证</h5>
-			    <p>授权<b>匿名提问箱</b>访问你的闭社账户，需要读权限(获取账户信息)和写权限(如果勾选了自动发布)。</p>
+			  <h5>授权登陆认证</h5>
+			  <p>授权<b>匿名提问箱</b>访问你的账户，需要读权限(获取账户信息)和写权限(如果勾选了自动发布)。</p>
 				<p>
-				<a id="auth" href="##" class="btn btn-primary mb-2">授权登陆</a>
-
-				<a class="btn btn-link" data-toggle="collapse" href="#advantageSettings" role="button">
-					#高级设置
-				</a>
+				  <a id="auth" href="##" class="btn btn-primary mb-2">授权登陆</a>
+				  <a class="btn btn-link" data-toggle="collapse" href="#advantageSettings" role="button">
+					  #高级设置
+				  </a>
 				</p>
 
 				<div class="collapse" id="advantageSettings" style="background-color:rgba(255,255,255,0.1);padding:10px">
@@ -128,8 +123,6 @@
 				</div>
 				
 			    <script>
-			    var c_id = "WQHzKKvfahkkcFm_iErT6ZdYvczi8L6Uunsoa88bCKA";
-			    var hostname = "thu.closed.social";
 			    function checked() {
 			        return $('#autoSend:checked').length>0;
 			    }
@@ -140,11 +133,12 @@
 			        } else {
 			            var re_uri=`${location.origin}${location.pathname}auth?autoSend=${checked()? 'autoSend':''}&secr=${$('#secr').val()}`;
 			            console.log(re_uri);
-			            $(this).attr("href", `https://${hostname}/oauth/authorize?client_id=${c_id}&scope=read:accounts${checked()?'+write:statuses':''}&redirect_uri=${encodeURIComponent(re_uri)}&response_type=code`);
+                  $(this).attr("href", `{{MAST_URL}}/oauth/authorize?client_id={{CLIENT_ID}}&scope=read:accounts${checked()?'+write:statuses':''}&redirect_uri=${encodeURIComponent(re_uri)}&response_type=code`);
 			        }
 			    });
             </script>
 			</div>
+      <!-- OAUTH_END -->
 
 			<hr/>
 
@@ -154,23 +148,19 @@
 
 $(function () {
     $.notify.defaults({autoHideDelay: 1500});
-    $('[data-toggle="tooltip"]').tooltip({
-        html: true,
-        title: "<p style='text-align:left'>相比“闭社的新功能”，我更乐意这被理解为一位闭社用户在闭社平台上搞的一个新玩具。毕竟做这个匿名提问箱，我只是在闭社注册了一个bot，没有用到任何特别的权限或者资源，没有涉及任何闭社内部代码。（为了省事用了和闭社相同的服务器和域名，但这完全可以换成别的）<br/><br/>希望未来有更多人利用闭社现成的身份认证和开放的开发环境，做出各种各样有意思的东西。"
-    });
     $('[data-toggle="popover"]').popover({
         html: true,
         placement: "top",
         trigger: "focus",
         title: "提示",
-        content: "<p>- 已建立过提问箱的情况下再次执行该步骤将重置链接，已有的提问不受影响。可通过重置后并不再分享新链接来实现关闭提问箱。</p><p>- 校友站用户请使用完整用户名而非本地用户名，例如 @somebody@tha.closed.social。</p><p>- 高级用法：私信“新建[路径]”以指定加密路径，而非默认的随机路径。也可利用该功能恢复以前曾经用过的路径。限长度不超过16的小写字母串，示例：<br/>“@ask_me_bot 新建[hhhhhhh]”。</p><img src='/img/pm.jpg' width=100% />"
+        content: "<p>- 已建立过提问箱的情况下再次执行该步骤将重置链接，已有的提问不受影响。可通过重置后并不再分享新链接来实现关闭提问箱。</p><p>- 非bot所在站点用户请使用完整用户名而非本地用户名，例如 @somebody@mastodon.social。</p><p>- 高级用法：私信“新建[路径]”以指定加密路径，而非默认的随机路径。也可利用该功能恢复以前曾经用过的路径。限长度不超过16的小写字母串，示例：<br/>“@ask_me_bot 新建[hhhhhhh]”。</p><img src='/img/pm.jpg' width=100% />"
     });
 });
 
 function sendData() {
 	$('#send')[0].disabled = true;
 	var data = {
-		username: $('#username')[0].value
+		username: $('#username').val()
 	};
 	$.ajax({
 		type:'POST',

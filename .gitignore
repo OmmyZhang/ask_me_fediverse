@@ -1,4 +1,5 @@
-*.secret
+config.py
+static/index.html
 *.db
 
 # Byte-compiled / optimized / DLL files
