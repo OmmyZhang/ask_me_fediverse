@@ -11,11 +11,19 @@
 
 ### 部署
 
-`python3 -m pip install -r requirement.txt`
+1. 安装依赖
 
-创建config.py
+   `python3 -m pip install -r requirement.txt`
 
-`python3 prepare.py`
+2. 创建config.py
+
+3. 第一次运行前的准备工作
+
+   `python3 prepare.py`
+
+   会创建数据库,以及根据config.py生成index.html
+
+4. 运行
 
 + 开发环境: 
    
