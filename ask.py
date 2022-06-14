@@ -82,12 +82,12 @@ class Question(db.Model):
         return f"[{self.acct}]{self.content}({self.toot})"
 
 
-@app.route('/js/<path:path>')
+@app.route('/askMe/js/<path:path>')
 def send_js(path):
     return send_from_directory('static/js', path)
 
 
-@app.route('/img/<path:path>')
+@app.route('/askMe/img/<path:path>')
 def send_img(path):
     return send_from_directory('static/img', path)
 
