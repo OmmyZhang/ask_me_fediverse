@@ -1,7 +1,7 @@
 # askMe
 匿名提问箱
 
-## 准备工作
+### 准备工作
 
 准备一个 Mastodon/Pleroma 上的bot帐号, 创建应用
 
@@ -9,7 +9,7 @@
 
 + 重定向 URI: \<WORK\_URL\>/askMe/auth
 
-## 部署
+### 部署
 
 `python3 -m pip install -r requirement.txt`
 
@@ -25,4 +25,6 @@
 
   建议使用uwsgi
     
-  建议 `$ uwsgi --touch-reload=ask.ini ask.ini &`, 或使用emperor管理
+  `$ uwsgi --touch-reload=ask.ini ask.ini &`, 或使用emperor管理
+
+  uwsgi 与 nginx 配置可参考 example\_dist 
