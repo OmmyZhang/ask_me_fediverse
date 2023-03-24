@@ -1,4 +1,4 @@
-from ask import db
+from ask import db, app
 from config import Config
 
 
@@ -18,4 +18,5 @@ if not Config.ENABLE_OAUTH:
 with open('static/index.html', 'w') as f2:
     f2.write(html)
 
-db.create_all()
+with app.app_context():
+    db.create_all()

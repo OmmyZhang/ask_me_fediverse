@@ -1,150 +1,151 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset='UTF-8'>
-		<link rel="icon" type="image/png" href="img/box.png"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-		<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-		<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
-		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-		<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-		<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-		<script src="https://cdn.bootcss.com/js-sha256/0.9.0/sha256.min.js"></script>
-		<script src="js/notify.min.js"></script>
-		<title>匿名提问箱</title>
-		<style>
-		.popover-header {
-		    color:black;
-		}
-		.popover-body {
-		    max-height: 250px;
-		    overflow-y: auto;
-		}
-		.tooltip.show p {
-		    text-align:left;
-		}
+  <head>
+    <meta charset='UTF-8'>
+    <link rel="icon" type="image/png" href="img/box.png"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap-grid.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.bootcss.com/js-sha256/0.9.0/sha256.min.js"></script>
+    <script src="js/notify.min.js"></script>
+    <title>匿名提问箱</title>
+    <style>
+    .popover-header {
+        color:black;
+    }
+    .popover-body {
+        max-height: 250px;
+        overflow-y: auto;
+    }
+    .tooltip.show p {
+        text-align:left;
+    }
 @keyframes downn {
-	0% {
-		transform: translate(0px, 0px);
-	}
-	50% {
-		transform: translate(0px, 7px);
-	}
-	100% {
-		transform: translate(0px, 0px);
-	}
+  0% {
+    transform: translate(0px, 0px);
+  }
+  50% {
+    transform: translate(0px, 7px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
 }
-		</style>
-	</head>
+    </style>
+  </head>
 
-	<body style="background-color: #001a37;color:#e8e8e8">
-		<div class="container" style="max-width:900px;" >
-			<div style="text-align:center; margin: 25px 0">
-			  <div>
-				  <h1>匿名提问箱</h1>
-		    </div>
-				<hr/>
+  <body style="background-color: #001a37;color:#e8e8e8">
+    <div class="container" style="max-width:900px;" >
+      <div style="text-align:center; margin: 25px 0">
+        <div>
+          <h1>匿名提问箱</h1>
+        </div>
+        <hr/>
 
-				<p>提问无需登陆，真正匿名<br/>链接路径加密，避免乱入</p>
-			</div>
+        <p>提问无需登陆，真正匿名<br/>链接路径加密，避免乱入</p>
+      </div>
 
-			<hr style="border-top: 1px solid white;"/>
+      <hr style="border-top: 1px solid white;"/>
 
-			<div style="text-align:center; margin:1%">
+      <div style="text-align:center; margin:1%">
 
-				<p><a type="button" class="btn btn-primary btn-lg" href="#start">创建提问箱</a></p>
-				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 2s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
-				<p>分享加密链接</p>
-				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 3s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
-				<p>好友匿名提问</p>
-				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 4s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
-				<p>bot在私信提醒</p>
-				<svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 5s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
-				<p>回复私信进行答复或删除</p>
-			</div>
+        <p><a type="button" class="btn btn-primary btn-lg" href="#start">创建提问箱</a></p>
+        <svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 2s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+        <p>分享加密链接</p>
+        <svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 3s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+        <p>好友匿名提问</p>
+        <svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 4s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+        <p>bot在私信提醒</p>
+        <svg viewbox="0 0 50 100" width="64" height="64" stroke="#e8e8e8" stroke-width="7" stroke-miterlimit="10" style="animation: downn 5s infinite;"><path d="M25.684 10v50.4"/><path d="M40.284 45.4L24.684 61"/><path d="M10.884 45.4l15.6 15.6"/></svg>
+        <p>回复私信进行答复或删除</p>
+      </div>
 
-			<hr style="border-top: 1px solid white;"/>
+      <hr style="border-top: 1px solid white;"/>
 
       <h4 id="start">任选一种方式创建/进入提问箱</h4>
       <!-- DIRECT_START -->
-			<div style="margin:30px auto;padding:15px;border: 1px dashed white;border-radius:15px; max-width:400px;">
-			  <h5>私信bot认证</h5>
+      <div style="margin:30px auto;padding:15px;border: 1px dashed white;border-radius:15px; max-width:400px;">
+        <h5>私信bot认证</h5>
         <p>
-          输入id并私信 <b>{{BOT_NAME}}@{{MAST_DOMAIN}}</b> “新建”，然后点击下方按钮，即可新建或重置提问箱。 
-				  <a href="##" role="button"data-toggle="popover" >
-				    <svg width="20" viewBox="0 0 24 28"><path d="M15.07 11.25l-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2a2 2 0 0 0-2 2H8a4 4 0 0 1 4-4a4 4 0 0 1 4 4a3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10z" fill="#626262"/></svg>
-				  </a>
-				</p>
-				<form class="form-row" action="javascript:void(0);" onsubmit="return sendData()">
-				  <div class="col">
-					    <div class="input-group mb-2">
-					        <div class="input-group-prepend">
-					            <div class="input-group-text">@</div>
+          输入id并私信 <b>{{BOT_NAME}}@{{MAST_DOMAIN}}</b> “新建”，然后点击下方按钮，即可新建或重置提问箱。
+          <a href="##" role="button"data-toggle="popover" >
+            <svg width="20" viewBox="0 0 24 28"><path d="M15.07 11.25l-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2a2 2 0 0 0-2 2H8a4 4 0 0 1 4-4a4 4 0 0 1 4 4a3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10c0-5.53-4.5-10-10-10z" fill="#626262"/></svg>
+          </a>
+        </p>
+        <form class="form-row" action="javascript:void(0);" onsubmit="return sendData()">
+          <div class="col">
+              <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text">@</div>
                             </div>
                             <input type="text" class="form-control" id="username" placeholder="用户名" required="required" pattern="[A-Za-z0-9_]{1,30}(@[a-z\.-_]+)?">
                         </div>
                     </div>
-					<div class="col-auto">
-					    <button id="send" type="submit" class="btn btn-primary mb-2">我已私信</button>
-					</div>
-				</form>	
-			</div>
+          <div class="col-auto">
+              <button id="send" type="submit" class="btn btn-primary mb-2">我已私信</button>
+          </div>
+        </form>
+      </div>
       <!-- DIRECT_END -->
-			
+
       <!-- OAUTH_START -->
-			<div style="margin:30px auto;padding:15px;border: 1px dashed white;border-radius:15px; max-width:400px;">
-			  <h5>授权登陆认证</h5>
-			  <p>授权<b>匿名提问箱</b>访问你的账户，需要读权限(获取账户信息)和写权限(如果勾选了自动发布)。</p>
-				<p>
-				  <a id="auth" href="##" class="btn btn-primary mb-2">授权登陆</a>
-				  <a class="btn btn-link" data-toggle="collapse" href="#advantageSettings" role="button">
-					  #高级设置
-				  </a>
-				</p>
+      <div style="margin:30px auto;padding:15px;border: 1px dashed white;border-radius:15px; max-width:400px;">
+        <h5>授权登陆认证</h5>
+        <p>授权<b>匿名提问箱</b>访问你的账户，需要读权限(获取账户信息)和写权限(如果勾选了自动发布)。</p>
+        <div class="row">
+          <div class="col-auto">
+            <a id="auth" href="##" class="btn btn-primary mb-2">授权登陆</a>
+          </div>
+          <div class="form-group col-auto">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="autoSend" checked>
+              <label class="form-check-label" for="autoSend">
+                自动发布
+              </label>
+            </div>
+          </div>
+        </div>
+        <p>
+          <a class="btn btn-link" data-toggle="collapse" href="#advantageSettings" role="button">
+            #高级设置
+          </a>
+        </p>
 
-				<div class="collapse" id="advantageSettings" style="background-color:rgba(255,255,255,0.1);padding:10px">
+        <div class="collapse" id="advantageSettings" style="background-color:rgba(255,255,255,0.1);padding:10px">
+            <div class="form-group row">
+              <label class="col-sm-3 col-form-label">加密路径</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control" id="secr" placeholder="留空则保持不变/随机生成" pattern="[a-z]{0,16}">
+              </div>
+            </div>
+        </div>
+      </div>
 
-					<form>
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label">加密路径</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" id="secr" placeholder="留空则保持不变/随机生成" pattern="[a-z]{0,16}">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" id="autoSend" checked>
-								<label class="form-check-label" for="autoSend">
-									自动发布
-								</label>
-							</div>
-						</div>
-					</form>
-				</div>
-				
-			    <script>
-			    function checked() {
-			        return $('#autoSend:checked').length>0;
-			    }
-			    
-			    $('#auth').click(function() {
-			        if(!$('#secr').val().match(/^[a-z]{0,16}$/)) {
-			            $.notify("加密路径格式不正确，限长度不超过16的小写字母串", "error");
-			        } else {
-			            var re_uri=`${location.origin}${location.pathname}auth?autoSend=${checked()? 'autoSend':''}&secr=${$('#secr').val()}`;
-			            console.log(re_uri);
+      <script>
+          function checked() {
+              return $('#autoSend:checked').length>0;
+          }
+
+          $('#auth').click(function() {
+              if(!$('#secr').val().match(/^[a-z]{0,16}$/)) {
+                  $.notify("加密路径格式不正确，限长度不超过16的小写字母串", "error");
+              } else {
+                  var re_uri=`${location.origin}${location.pathname}auth?autoSend=${checked()? 'autoSend':''}&secr=${$('#secr').val()}`;
+                  console.log(re_uri);
                   $(this).attr("href", `{{MAST_URL}}/oauth/authorize?client_id={{CLIENT_ID}}&scope=read:accounts${checked()?'+write:statuses':''}&redirect_uri=${encodeURIComponent(re_uri)}&response_type=code`);
-			        }
-			    });
-            </script>
-			</div>
+              }
+          });
+      </script>
       <!-- OAUTH_END -->
 
-			<hr/>
+      <hr/>
 
-		</div>
+    </div>
 
-		<script type="text/javascript">
+    <script type="text/javascript">
 
 $(function () {
     $.notify.defaults({autoHideDelay: 1500});
@@ -158,33 +159,33 @@ $(function () {
 });
 
 function sendData() {
-	$('#send')[0].disabled = true;
-	var data = {
-		username: $('#username').val()
-	};
-	$.ajax({
-		type:'POST',
-		url:'inbox',
-		data:data, 
-		success:(result,status,xhr) => {
-			console.log(result+' : '+status);
-			$.notify("操作成功", "success");
-			location.pathname += result
-		},
-		error:(xhr,status,error) => {
-			$.notify(xhr.status+' : '+xhr.responseText, "error");
-			$('#send')[0].disabled = false;
-		}
-	});
-	return false;
+  $('#send')[0].disabled = true;
+  var data = {
+    username: $('#username').val()
+  };
+  $.ajax({
+    type:'POST',
+    url:'inbox',
+    data:data,
+    success:(result,status,xhr) => {
+      console.log(result+' : '+status);
+      $.notify("操作成功", "success");
+      location.pathname += result
+    },
+    error:(xhr,status,error) => {
+      $.notify(xhr.status+' : '+xhr.responseText, "error");
+      $('#send')[0].disabled = false;
+    }
+  });
+  return false;
 }
 
-		</script>
+    </script>
 
-		<footer style="background-color:#000010;color:white;border-top: 1px solid white;margin-top:20px;padding-top:10px;">
-		</footer>
-		<script>
-		    $('footer').load('footer.html');
-		</script>
-	</body>
+    <footer style="background-color:#000010;color:white;border-top: 1px solid white;margin-top:20px;padding-top:10px;">
+    </footer>
+    <script>
+        $('footer').load('footer.html');
+    </script>
+  </body>
 </html>

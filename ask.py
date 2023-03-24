@@ -40,8 +40,8 @@ th = Mastodon(
 
 
 limiter = Limiter(
-    app,
     key_func=get_remote_address,
+    app=app,
     default_limits=["50 / minute"],
 )
 
